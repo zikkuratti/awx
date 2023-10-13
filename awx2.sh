@@ -24,6 +24,7 @@ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 minikube start --cpus=4 --memory=6g --addons=ingress --vm-driver=docker --disk-size 10000mb
+#minikube delete --all
 minikube kubectl -- get nodes
 alias kubectl="minikube kubectl --"
 
