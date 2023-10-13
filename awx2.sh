@@ -56,4 +56,4 @@ EOF
 #kubectl logs -f deployments/awx-operator-controller-manager -c awx-manager
 
 # Step5: Enable external access
-#kubectl port-forward service/awx-demo-service --address 0.0.0.0 30080:80
+#kubectl port-forward service/awx-demo-service --address 0.0.0.0 30080:80 &> /dev/null &
