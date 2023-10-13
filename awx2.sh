@@ -40,8 +40,8 @@ images:
 namespace: awx
 EOF
 
-kubectl apply -k .
-kubectl config set-context --current --namespace=awx
+minikube kubectl -- apply -k .
+minikube kubectl -- config set-context --current --namespace=awx
 
 # Step4: Install AWX
 sudo cat <<EOF > awx-server.yaml
@@ -53,8 +53,8 @@ spec:
   service_type: nodeport
 EOF
 
-#kubectl apply -k .
-#kubectl logs -f deployments/awx-operator-controller-manager -c awx-manager
+#minikube kubectl -- apply -k .
+#minikube kubectl -- logs -f deployments/awx-operator-controller-manager -c awx-manager
 
 # Step5: Enable external access
-#kubectl port-forward service/awx-demo-service --address 0.0.0.0 30080:80 &> /dev/null &
+#minikube kubectl -- port-forward service/awx-demo-service --address 0.0.0.0 30080:80 &> /dev/null &
