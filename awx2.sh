@@ -17,18 +17,17 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 # Add the user to the Docker group
 sudo usermod -aG docker $USER
 
-# Apply group membership changes without logging out (server environment)
-newgrp docker
+sudo systemctl restart docker
 
 # Continue with Minikube and Kubernetes setup
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
-minikube start --cpus=4 --memory=6g --addons=ingress --disk-size 35000mb
+minikube start --cpus=4 --memory=6g --addons=ingress --vm-driver=docker --disk-size 10000mb
 alias kubectl="minikube kubectl --"
 
 # Step3: Install AWX Operator
-cat <<EOF > kustomization.yaml
+sudo cat <<EOF > kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
@@ -40,10 +39,10 @@ namespace: awx
 EOF
 
 kubectl apply -k .
-#kubectl config set-context --current --namespace=awx
+kubectl config set-context --current --namespace=awx
 
 # Step4: Install AWX
-cat <<EOF > awx-server.yaml
+sudo cat <<EOF > awx-server.yaml
 apiVersion: awx.ansible.com/v1beta1
 kind: AWX
 metadata:
