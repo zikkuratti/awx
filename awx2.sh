@@ -32,7 +32,7 @@ cat <<EOF > kustomization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - github.com/ansible/awx-operator/config/default?ref=2.0.1
+  - github.com/ansible/awx-operator/config/default?ref=2.1.0
 images:
   - name: quay.io/ansible/awx-operator
     newTag: 2.1.0
