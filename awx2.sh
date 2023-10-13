@@ -15,7 +15,7 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 # Add the user to the Docker group
-sudo usermod -aG docker $USER
+sudo usermod -aG docker $USER && newgrp docker
 
 sudo systemctl restart docker
 
@@ -24,6 +24,7 @@ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-
 sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 minikube start --cpus=4 --memory=6g --addons=ingress --vm-driver=docker --disk-size 10000mb
+minikube kubectl -- get nodes
 alias kubectl="minikube kubectl --"
 
 # Step3: Install AWX Operator
