@@ -20,38 +20,38 @@ sudo usermod -aG docker $USER && newgrp docker
 sudo systemctl restart docker
 
 # Continue with Minikube and Kubernetes setup
-curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-sudo install minikube-linux-amd64 /usr/local/bin/minikube
+#curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+#sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
-minikube start --cpus=4 --memory=6g --addons=ingress --vm-driver=docker --disk-size 10000mb
+#minikube start --cpus=4 --memory=6g --addons=ingress --vm-driver=docker --disk-size 10000mb
 #minikube delete --all
-minikube kubectl -- get nodes
-alias kubectl="minikube kubectl --"
+#minikube kubectl -- get nodes
+#alias kubectl="minikube kubectl --"
 
 # Step3: Install AWX Operator
-sudo cat <<EOF > kustomization.yaml
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - github.com/ansible/awx-operator/config/default?ref=2.1.0
-images:
-  - name: quay.io/ansible/awx-operator
-    newTag: 2.1.0
-namespace: awx
-EOF
+#sudo cat <<EOF > kustomization.yaml
+#apiVersion: kustomize.config.k8s.io/v1beta1
+#kind: Kustomization
+#resources:
+#  - github.com/ansible/awx-operator/config/default?ref=2.1.0
+#images:
+#  - name: quay.io/ansible/awx-operator
+#    newTag: 2.1.0
+#namespace: awx
+#EOF
 
-minikube kubectl -- apply -k .
-minikube kubectl -- config set-context --current --namespace=awx
+#minikube kubectl -- apply -k .
+#minikube kubectl -- config set-context --current --namespace=awx
 
 # Step4: Install AWX
-sudo cat <<EOF > awx-server.yaml
-apiVersion: awx.ansible.com/v1beta1
-kind: AWX
-metadata:
-  name: awx-server
-spec:
-  service_type: nodeport
-EOF
+#sudo cat <<EOF > awx-server.yaml
+#apiVersion: awx.ansible.com/v1beta1
+#kind: AWX
+#metadata:
+#  name: awx-server
+#spec:
+#  service_type: nodeport
+#EOF
 
 #minikube kubectl -- apply -k .
 #minikube kubectl -- logs -f deployments/awx-operator-controller-manager -c awx-manager
